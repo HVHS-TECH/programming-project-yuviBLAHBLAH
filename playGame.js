@@ -7,18 +7,26 @@
 /*******************************************************/
 // setup()
 /*******************************************************/
+function preload() {
+
+	imgBG = loadImage('../loadImage/space.jpg');
+
+	imgFace = loadImage('../loadImage/face.png');
+
+}
 function setup() {
 	console.log("setup: ");
 	cnv = new Canvas(windowWidth, windowHeight);
+	ball_1 = new Sprite(width / 2, height / 2, 50, 'd');
 
-	//make blocks idk i js got here
-	for (var i = 0; i < 25; i++) {
-		blockColor = color(random(255), random(255), random(255))
-		for (var collumn = 0; collumn < 25; collumn++ ) {
-			var block = new Sprite(collumn*80+ 40, i * 80,50, 50);
-			block.color = spriteColor;
-		}
-	}
+	ball_1.bounciness = 1;
+
+	ball_1.friction = 0;
+
+	ball_1.image = (imgFace);
+
+	imgFace.resize(50, 50);
+
 
 }
 
@@ -26,7 +34,7 @@ function setup() {
 // draw()
 /*******************************************************/
 function draw() {
-	background("pink");
+	background(imgBG);
 }
 
 /*******************************************************/

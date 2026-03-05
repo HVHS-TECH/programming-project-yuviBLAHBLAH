@@ -7,34 +7,42 @@
 /*******************************************************/
 // setup()
 /*******************************************************/
-function preload() {
-
-	imgBG = loadImage('../loadImage/space.jpg');
-
-	imgFace = loadImage('../loadImage/face.png');
-
-}
 function setup() {
 	console.log("setup: ");
 	cnv = new Canvas(windowWidth, windowHeight);
-	ball_1 = new Sprite(width / 2, height / 2, 50, 'd');
 
-	ball_1.bounciness = 1;
+	world.gravity.y = 10;
 
-	ball_1.friction = 0;
+	wallLH = new Sprite(250, height / 2, 20, height, 'k');
+	wallLH.color = 'lime';
 
-	ball_1.image = (imgFace);
+	wallRH = new Sprite(1650, height / 2, 20, height, 'k');
+	wallRH.color = 'lime';
 
-	imgFace.resize(50, 50);
+	wallTop = new Sprite(width / 2, 0, width, 20, 'k');
+	wallTop.color = 'lime';
 
+	wallBot = new Sprite(width / 2, height, width, 20, 'k');
+	wallBot.color = 'lime';
+	horse = new Sprite(width / 2, height / 2, 50, 'd');
 
+	horse.bounciness = 1;
+
+	horse.drag = 1;
+
+	horse.speed = 67;
+
+	horse.color = 'yellow'
+
+	if (kb.pressing('space') || mouse.pressing()) {
+		horse.color = 'green';
+	}
 }
-
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
-	background(imgBG);
+	background("black")
 }
 
 /*******************************************************/

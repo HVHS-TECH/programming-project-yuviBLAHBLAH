@@ -3,7 +3,10 @@
 // start the game
 /// Written by yuvi
 /*******************************************************/
+function preload() {
 
+	imgBir = loadImage('../Images/birbirpatapim.png');
+}
 /*******************************************************/
 // setup()
 /*******************************************************/
@@ -13,10 +16,10 @@ function setup() {
 
 	world.gravity.y = 10;
 
-	wallLH = new Sprite(250, height / 2, 20, height, 'k');
+	wallLH = new Sprite(width, height / 2, 20, height, 'k');
 	wallLH.color = 'lime';
 
-	wallRH = new Sprite(1650, height / 2, 20, height, 'k');
+	wallRH = new Sprite(width, height / 2, 20, height, 'k');
 	wallRH.color = 'lime';
 
 	wallTop = new Sprite(width / 2, 0, width, 20, 'k');
@@ -26,23 +29,33 @@ function setup() {
 	wallBot.color = 'lime';
 	horse = new Sprite(width / 2, height / 2, 50, 'd');
 
-	horse.bounciness = 1;
+	horse.bounciness = 3;
 
 	horse.drag = 1;
 
-	horse.speed = 67;
-
 	horse.color = 'yellow'
 
-	if (kb.pressing('space') || mouse.pressing()) {
-		horse.color = 'green';
-	}
+	horse.image = (imgBir);
+
+	imgBir.resize(50, 50);
+
+
 }
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
-	background("black")
+	if (kb.pressing('up')) {
+
+	horse.speed = 2;
+	
+	if (kb.pressing('up')) {
+		horse.direction = -90;
+	} else {
+	  horse.speed = 0;
+	}
+}
+	background("white")
 }
 
 /*******************************************************/

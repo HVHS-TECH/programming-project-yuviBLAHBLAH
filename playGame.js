@@ -5,39 +5,30 @@
 /*******************************************************/
 function preload() {
 
-	imgBir = loadImage('../Images/birbirpatapim.png');
+	imgHorsi = loadImage('../Images/horsi g.png');
 }
 /*******************************************************/
 // setup()
 /*******************************************************/
 function setup() {
+	frameRate(120)
 	console.log("setup: ");
 	cnv = new Canvas(windowWidth, windowHeight);
 
-	world.gravity.y = 10;
+	world.gravity.y = 4.5;
 
-	wallLH = new Sprite(width, height / 2, 20, height, 'k');
-	wallLH.color = 'lime';
+	wallTop = new Sprite(width / 2, 50, width, 10, 'k');
+	wallTop.color = 'black';
 
-	wallRH = new Sprite(width, height / 2, 20, height, 'k');
-	wallRH.color = 'lime';
-
-	wallTop = new Sprite(width / 2, 0, width, 20, 'k');
-	wallTop.color = 'lime';
-
-	wallBot = new Sprite(width / 2, height, width, 20, 'k');
-	wallBot.color = 'lime';
+	wallBot = new Sprite(width / 2, height -50, width, 10, 'k');
+	wallBot.color = 'black';
 	horse = new Sprite(width / 2, height / 2, 50, 'd');
 
-	horse.bounciness = 3;
+	horse.bounciness = 0.1;
 
-	horse.drag = 1;
+	horse.image = (imgHorsi);
 
-	horse.color = 'yellow'
-
-	horse.image = (imgBir);
-
-	imgBir.resize(50, 50);
+	imgHorsi.resize(100, 100);
 
 
 }
@@ -47,7 +38,7 @@ function setup() {
 function draw() {
 	if (kb.pressing('up')) {
 
-	horse.speed = 2;
+	horse.speed = 2.5;
 	
 	if (kb.pressing('up')) {
 		horse.direction = -90;

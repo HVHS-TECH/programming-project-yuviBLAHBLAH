@@ -7,6 +7,8 @@
 function preload() {
 
 	imgHorsi = loadImage('../Images/horsi g.png');
+	imgPipetop = loadImage('../Images/pipetop.png');
+	imgPipebot = loadImage('../Images/pipebot.png');
 }
 
 let score = 0
@@ -21,19 +23,36 @@ function setup() {
 	world.gravity.y = 4.5;
 
 	wallTop = new Sprite(width / 2, 50, width, 10, 'k');
-	wallTop.color = 'black';
+	wallTop.color = 'white';
 
 	wallBot = new Sprite(width / 2, height - 50, width, 10, 'k');
-	wallBot.color = 'black';
-	horse = new Sprite(width / 2, height / 2, 50, 'd');
+	wallBot.color = 'white';
+	horse = new Sprite(width / 2 - 25, height - 700, 50, 'd');
 
 	horse.bounciness = 0.1;
 
 	horse.image = (imgHorsi);
 
-	imgHorsi.resize(75, 75);
+	horse.speed = (10);
+
+	imgHorsi.resize(50, 50);
+
+	pipetop = new Sprite(width - 225, height / 2, 50, 'd');
+
+	pipetop.image = (imgPipetop);
+
+	pipetop.drag = (10000);
+
+	imgPipetop.resize(500, 1000);
 
 
+	pipebot = new Sprite(width - 225, height / 2, 50, 'd');
+
+	pipebot.image = (imgPipebot);
+
+	pipebot.drag = (10000);
+
+	imgPipebot.resize(500, 1000);
 }
 /*******************************************************/
 // draw()

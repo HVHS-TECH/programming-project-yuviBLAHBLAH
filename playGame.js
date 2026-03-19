@@ -39,8 +39,8 @@ function setup() {
 
 	pillarTop = new Sprite(width -100, height- 750, 100, 350,'k')
 	pillarBot = new Sprite(width -100, height- 50, 100, 350,'k')
-	pillarBot.moveTowards(horse, 0.001);
-	pillarTop.moveTowards(horse, 0.001);
+	pillarBot.moveTowards(horse, 0.001, 'k');
+	pillarTop.moveTowards(horse, 0.001, 'k');
 }
 /*******************************************************/
 // draw()

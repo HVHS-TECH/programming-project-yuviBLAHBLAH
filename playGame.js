@@ -16,7 +16,18 @@ let score = 0
 /*******************************************************/
 // setup()
 /*******************************************************/
+function deleteBall(_alien, _blecktangle) {
+
+	// Delete the alien which was hit
+	console.log("colliding: ");
+	_alien.remove();
+
+}
 function setup() {
+
+	//create a new group for the aliens and define the properties of the aliens
+
+	alienGroup = new Group();
 	frameRate(120)
 	console.log("setup: ");
 	cnv = new Canvas(windowWidth, windowHeight);
@@ -41,6 +52,48 @@ function setup() {
 	pillarBot = new Sprite(width -100, height- 50, 100, 350,'k')
 	pillarBot.moveTowards(horse, 0.001, 'k');
 	pillarTop.moveTowards(horse, 0.001, 'k');
+
+	for (i = 10; i < 20; i++) {
+
+		let alien = new Sprite(windowWidth / 2, windowHeight / 4, 100, 100);
+
+		alien.vel.x = 3;
+
+		alien.vel.y = 4;
+
+		alien.bounciness = 1;
+
+		alien.friction = 0;
+
+		alienGroup.add(alien);
+
+		alienGroup.collides(horse, deleteBall);
+
+
+	}
+
+	spriteX= random(50,150);
+spriteY=  random(50,150);  ;
+
+cnv = new Canvas(width, height);
+
+
+red = new Sprite(spriteX/2, spriteY/2, spriteX, spriteY);
+red.color = 'red';
+
+green = new Sprite( width-50, spriteY/2 , spriteX, spriteY);
+green.color = 'green';
+
+blue = new Sprite( width-50, height-50, spriteX, spriteY);
+blue.color = 'blue';
+
+yellow = new Sprite( spriteX/2, height-50,  spriteX, spriteY);
+yellow.color = 'yellow';
+
+purple = new Sprite( width/2, height/2 ,  spriteX, spriteY);
+purple.color = 'purple';
+
+
 }
 /*******************************************************/
 // draw()

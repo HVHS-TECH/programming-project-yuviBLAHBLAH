@@ -13,10 +13,11 @@ function preload() {
 }
 
 let score = 0
+let gameState = "menu";
 /*******************************************************/
 // setup()
 /*******************************************************/
-function deleteBall(_alien, _blecktangle) {
+function deleteBall(_alien, _horse) {
 
 	// Delete the alien which was hit
 	console.log("colliding: ");
@@ -42,17 +43,24 @@ function setup() {
 	horse = new Sprite(width / 2 - 25, height - 700, 50, 'd');
 
 	horse.bounciness = 0.1;
-		horse.speed = 0;
+	horse.speed = 0;
 
 	horse.image = (imgHorsi);
 
 	imgHorsi.resize(50, 50);
 
-	pillarTop = new Sprite(width -100, height- 750, 100, 350,'k')
-	pillarBot = new Sprite(width -100, height- 50, 100, 350,'k')
+	pillarTop = new Sprite(width - 100, height - 750, 100, 350, 'k')
+	pillarBot = new Sprite(width - 100, height - 50, 100, 350, 'k')
 	pillarBot.moveTowards(horse, 0.001, 'k');
 	pillarTop.moveTowards(horse, 0.001, 'k');
 
+	if (horse.collides(pillarBot)) {
+		world.timeScale = 0;
+	}
+	else {
+		world.timeScale = 1;
+
+	}
 	for (i = 10; i < 20; i++) {
 
 		let alien = new Sprite(windowWidth / 2, windowHeight / 4, 100, 100);
@@ -68,47 +76,23 @@ function setup() {
 		alienGroup.add(alien);
 
 		alienGroup.collides(horse, deleteBall);
-
-
 	}
-
-	spriteX= random(50,150);
-spriteY=  random(50,150);  ;
-
-cnv = new Canvas(width, height);
-
-
-red = new Sprite(spriteX/2, spriteY/2, spriteX, spriteY);
-red.color = 'red';
-
-green = new Sprite( width-50, spriteY/2 , spriteX, spriteY);
-green.color = 'green';
-
-blue = new Sprite( width-50, height-50, spriteX, spriteY);
-blue.color = 'blue';
-
-yellow = new Sprite( spriteX/2, height-50,  spriteX, spriteY);
-yellow.color = 'yellow';
-
-purple = new Sprite( width/2, height/2 ,  spriteX, spriteY);
-purple.color = 'purple';
-
-
+	
 }
 /*******************************************************/
 // draw()
 /*******************************************************/
 function draw() {
-		background(imgBG);
-  textSize(32);
-  fill(255);
-  stroke(0);
-  strokeWeight(4);
-  text(score, windowWidth /2 - 40 , 150);
+	background(imgBG);
+	textSize(32);
+	fill(255);
+	stroke(0);
+	strokeWeight(4);
+	text(score, windowWidth / 2 - 40, 150);
 	//the score
 	score = frameCount / 120;
 	score = Math.floor(score)
-	  console.log("score: " + score);
+	console.log("score: " + score);
 	if (kb.pressing('up')) {
 
 		horse.speed = 2.5;
@@ -119,6 +103,16 @@ function draw() {
 			horse.speed = 0;
 		}
 	}
+
+		if (kb.pressing('up')) {
+
+		horse.speed = 2.5;
+}
+		if (kb.pressing('r')) {
+			world.timeScale = 0;
+		} else {
+			world.timeScale = 1;
+		}
 
 }
 

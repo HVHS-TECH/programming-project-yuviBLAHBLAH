@@ -7,8 +7,6 @@
 function preload() {
 
 	imgHorsi = loadImage('../Images/horsi g.png');
-	imgPipetop = loadImage('../Images/pipetop.png');
-	imgPipebot = loadImage('../Images/pipebot.png');
 	imgBG = loadImage('../Images/background.jpg');
 }
 
@@ -17,9 +15,6 @@ let score = 0
 // setup()
 /*******************************************************/
 function setup() {
-
-	// testing stuff here
-
 	//set framerate as 120
 	frameRate(120)
 	console.log("setup: ");
@@ -41,14 +36,24 @@ function setup() {
 	horse.image = (imgHorsi);
 
 	imgHorsi.resize(50, 50);
+	// create a new group for pipes
+	pipes = new Group();
 
-	anchor = new Sprite(windowWidth - 5000, 500)
-	// make moving pillars towards left side of screen
-	pillarTop = new Sprite(width + 100, height - 750, 100, 450, 'k')
-	pillarBot = new Sprite(width + 100, height - 50, 100, 450, 'k')
-	pillarBot.moveTowards(anchor, 0.001, 'k');
-	pillarTop.moveTowards(anchor, 0.001, 'k');
+	let gap = 150; // Distance between pipes
+	let minHeight = 50;
+	let maxHeight = height - gap - minHeight;
+	let topHeight = random(minHeight, maxHeight);
 
+	// Top Pipe
+	pipeTop = new Sprite(width + 20, topHeight / 2, 50, topHeight, 'k');
+	pipeTop.vel.x = -3; // Move the pipe towards the left
+	pipes.add(pipeTop); // adds pipeTop to the group
+
+	// Bottom Pipe
+	pipeBottom = new Sprite(width + 20, height - (height - topHeight - gap) / 2, 50, height - topHeight - gap, 'k');
+	pipeBottom.vel.x = -3;
+	pipes.add(pipeBottom);// adds pipeBottom to the group
+	pipes.gravityScale = 0;// pipes gravtity = 0 so they dont fall over
 
 }
 /*******************************************************/
@@ -67,7 +72,8 @@ function draw() {
 	score = frameCount / 120;
 	score = Math.floor(score)
 	console.log("score: " + score);
-	// horse controls, if the keyboard presses up then set horse speed 2.5 towards -90 degrees
+
+	// horse controls
 	if (kb.pressing('up')) {
 		horse.speed = 2.5;
 	};
@@ -80,20 +86,12 @@ function draw() {
 
 		horse.speed = 2.5;
 	};
-	// if the horse collides with the pillars then set world time to 0
-	if (horse.collides(pillarBot)) {
-		world.timeScale = 0;
-	}
-	else {
-		world.timeScale = 1;
-
-	};
-// when horse collides with pillars display text showing that the game is over
-	if (horse.collides(pillarTop)) {
+	// when horse collides with pillars display text showing that the game is over
+	if (horse.collides(pipeTop)) {
 		world.timeScale = 0;
 		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
 	};
-	if (horse.collides(pillarBot)) {
+	if (horse.collides(pipeBottom)) {
 		world.timeScale = 0;
 		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
 	};

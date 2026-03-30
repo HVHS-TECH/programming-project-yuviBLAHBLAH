@@ -37,6 +37,18 @@ function setup() {
 
 	imgHorsi.resize(50, 50);
 	// create a new group for pipes
+	makePipes();
+
+}
+/*******************************************************/
+// pipes()
+/*******************************************************/
+function makePipes() {
+
+	// if the remainder is 0, the spawn the pipes, if not then do nothing.
+	if (frameCount % 180 != 0) {
+		return;
+	}
 	pipes = new Group();
 
 	let gap = 150; // Distance between pipes
@@ -46,16 +58,17 @@ function setup() {
 
 	// Top Pipe
 	pipeTop = new Sprite(width + 20, topHeight / 2, 50, topHeight, 'k');
-	pipeTop.vel.x = -3; // Move the pipe towards the left
+	pipeTop.vel.x = -2; // Move the pipe towards the left
 	pipes.add(pipeTop); // adds pipeTop to the group
 
 	// Bottom Pipe
 	pipeBottom = new Sprite(width + 20, height - (height - topHeight - gap) / 2, 50, height - topHeight - gap, 'k');
-	pipeBottom.vel.x = -3;
+	pipeBottom.vel.x = -2;
 	pipes.add(pipeBottom);// adds pipeBottom to the group
 	pipes.gravityScale = 0;// pipes gravtity = 0 so they dont fall over
 
 }
+
 /*******************************************************/
 // draw()
 /*******************************************************/
@@ -72,6 +85,9 @@ function draw() {
 	score = frameCount / 120;
 	score = Math.floor(score)
 	console.log("score: " + score);
+	
+	// run the function
+	makePipes();
 
 	// horse controls
 	if (kb.pressing('up')) {
@@ -87,16 +103,13 @@ function draw() {
 		horse.speed = 2.5;
 	};
 	// when horse collides with pillars display text showing that the game is over
-	if (horse.collides(pipeTop)) {
+	if (horse.collides(pipes)) {
 		world.timeScale = 0;
 		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
 	};
-	if (horse.collides(pipeBottom)) {
-		world.timeScale = 0;
-		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
-	};
-
-
+if (horse.collides(pipes)) {
+	console.log("ouch " );
+}
 
 }
 

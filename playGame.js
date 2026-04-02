@@ -6,8 +6,8 @@
 // load the display image for the horse
 function preload() {
 
-	imgHorsi = loadImage('../Images/horsi g.png');
-	imgBG = loadImage('../Images/background.jpg');
+	imgHorsi = loadImage('Images/horsi g.png');
+	imgBG = loadImage('Images/background.jpg');
 }
 
 let score = 0
@@ -38,7 +38,13 @@ function setup() {
 
 	imgHorsi.resize(50, 50);
 	// create a new group for pipes
+	pipes = new Group();
 	makePipes();
+
+	textSize(32);
+	fill(255);
+	stroke(0);
+	strokeWeight(4);
 
 }
 /*******************************************************/
@@ -50,7 +56,6 @@ function makePipes() {
 	if (frameCount % 180 != 0) {
 		return;
 	}
-	pipes = new Group();
 
 	let gap = 200; // Distance between pipes
 	let minHeight = 50;
@@ -70,52 +75,6 @@ function makePipes() {
 
 }
 
-/*******************************************************/
-// draw()
-/*******************************************************/
-/* function draw() {
-	// draw background
-	background(imgBG);
-	// draw score
-	textSize(32);
-	fill(255);
-	stroke(0);
-	strokeWeight(4);
-	text(score, windowWidth / 2 - 40, 150);
-	//the score count
-	score = frameCount / 120;
-	score = Math.floor(score)
-	console.log("score: " + score);
-	
-	// run the function
-	makePipes();
-
-	// horse controls
-	if (kb.pressing('up')) {
-		horse.speed = 2.5;
-	};
-
-	if (kb.pressing('up')) {
-		horse.direction = -90;
-	};
-
-	if (kb.pressing('up')) {
-
-		horse.speed = 2.5;
-	};
-
-		// when horse collides with pillars display text showing that the game is over
-	if (horse.collides(pipeBottom)) {
-		world.timeScale = 0;
-		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
-	};
-
-if (horse.collides(pipeBottom)) {
-	console.log("ouch " );
-}
-
-} */
-
 let gameState = "play";
 
 function drawMenu() {
@@ -124,58 +83,33 @@ function drawMenu() {
 
 
 function drawGame() {
+	// horse controls
+	if (kb.pressing('up')) {
+		horse.speed = 2.5;
+		horse.direction = -90
+	};
+
 	background('white');
-		console.log(horse.collides(pipeBottom));
 
-	if (horse.collides(pipeBottom)) {
-		console.log("ouch ");
-		gameState = "gameover"
+	if (horse.collides(pipes)) {
+		console.log("ouch");
+		gameState = "gameover";
 	}
 
-	if (horse.collides(pipeTop)) {
-		console.log("ouch ");
-		gameState = "gameover"
-	}
-
-	textSize(32);
-	fill(255);
-	stroke(0);
-	strokeWeight(4);
 	text(score, windowWidth / 2 - 40, 150);
 	//the score count
 	score = frameCount / 120;
 	score = Math.floor(score)
 	console.log("score: " + score);
+	makePipes();
 
-	// run the function
-
-	// horse controls
-	if (kb.pressing('up')) {
-		horse.speed = 2.5;
-	};
-
-	if (kb.pressing('up')) {
-		horse.direction = -90;
-	};
-
-	if (kb.pressing('up')) {
-
-		horse.speed = 2.5;
-	};
 }
 
 function drawGameOver() {
 	background('red')
-	// when horse collides with pillars display text showing that the game is over
-	if (horse.collides(pipeBottom)) {
-		world.timeScale = 0;
-		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
-	};
-
-	if (horse.collides(pipeTop)) {
-		world.timeScale = 0;
-		text("you lost!, refresh tab to restart", windowWidth / 2 - 100, windowHeight / 6);
-	};
+	text("YOU LOST!", windowWidth / 2 - 80, windowHeight / 2);
+    text("Refresh tab to restart", windowWidth / 2 - 120, windowHeight / 2 + 50);
+	text("your score was " +score, windowWidth / 2 - 90, windowHeight / 2 + 100);
 }
 
 

@@ -98,9 +98,19 @@ function drawGame() {
 		horse.speed = 2.5;
 		horse.direction = -90
 	};
-
-	background('black');
-
+	
+for (let i = 0; i < 10; i++) {
+	// for loop that does absolutley nothing and glitches while making the background grey.
+    if ((i + frameCount) % 2 == 0) {
+        fill(255); // White
+    } else {
+        fill(0);   // Black
+    }
+    
+    noStroke();
+    // Draw a rectangle for each part of the loop
+    rect(i * (width / 10), 0, width / 10, height);
+}
 	if (horse.collides(pipes)) {
 		console.log("ouch");
 		gameState = "gameover";

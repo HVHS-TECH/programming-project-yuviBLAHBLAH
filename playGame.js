@@ -8,14 +8,21 @@ function preload() {
 
 	imgHorsi = loadImage('Images/horsi g.png');
 	imgBG = loadImage('Images/background.jpg');
-}
-
+}	
 let score = 0
+let stars = []
 /*******************************************************/
 // setup()
 /*******************************************************/
 function setup() {
-
+    stars = []; // Add this just to be safe to reset the list
+    for (let i = 0; i < 100; i++) {
+        stars.push({
+            x: random(width),
+            y: random(height),
+            size: random(1, 4)
+        });
+    }
 	//set framerate as 120
 	frameRate(120)
 	console.log("setup: ");
@@ -37,9 +44,11 @@ function setup() {
 	horse.image = (imgHorsi);
 
 	imgHorsi.resize(50, 50);
+
 	// create a new group for pipes
 	pipes = new Group();
 	makePipes();
+	
 
 	textSize(32);
 	fill(255);
@@ -47,6 +56,7 @@ function setup() {
 	strokeWeight(4);
 
 }
+
 /*******************************************************/
 // pipes()
 /*******************************************************/
@@ -89,7 +99,7 @@ function drawGame() {
 		horse.direction = -90
 	};
 
-	background('white');
+	background('black');
 
 	if (horse.collides(pipes)) {
 		console.log("ouch");
